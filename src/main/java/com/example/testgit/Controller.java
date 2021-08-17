@@ -9,7 +9,7 @@ public class Controller {
         return "index";
     }
     @RequestMapping("/")
-    public String ne(){
+    public String e(){
         return "index";
     }
 }
