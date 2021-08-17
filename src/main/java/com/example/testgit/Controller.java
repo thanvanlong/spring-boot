@@ -13,7 +13,7 @@ public class Controller {
         return "index";
     }
     @RequestMapping("/")
-    public String a(){
+    public String ee(){
         return "index";
     }
 }
