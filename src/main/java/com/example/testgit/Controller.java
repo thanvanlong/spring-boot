@@ -8,4 +8,8 @@ public class Controller {
     public String index(){
         return "index";
     }
+    @RequestMapping("/")
+    public String ne(){
+        return "index";
+    }
 }
