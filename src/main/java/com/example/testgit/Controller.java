@@ -12,4 +12,8 @@ public class Controller {
     public String e(){
         return "index";
     }
+    @RequestMapping("/")
+    public String a(){
+        return "index";
+    }
 }
