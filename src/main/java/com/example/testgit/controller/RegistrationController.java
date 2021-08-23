@@ -22,7 +22,7 @@ public class RegistrationController {
         RegistrationRequest request = new RegistrationRequest(firstName,lastName,password,email);
         System.out.println(request.getFirstName());
         System.out.println(registrationService.register(request));
-
+        //say ok
 
         return "confirm";
     }
