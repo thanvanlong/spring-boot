@@ -15,7 +15,7 @@ public class RegistrationController {
     @PostMapping
     public String register(@RequestBody RegistrationRequest registrationRequest){
         registrationService.register(registrationRequest);
-        return "redirect:/confirm-email";
+        return "confirmEmail";
     }
 
     @GetMapping("/confirm-email")
