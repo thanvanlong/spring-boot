@@ -1,10 +1,13 @@
 package com.example.testgit.controller;
 
 import com.example.testgit.entity.request.RegistrationRequest;
+import com.example.testgit.entity.user.User;
 import com.example.testgit.service.RegistrationService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,9 +45,18 @@ public class RegistrationController {
     }
 
     @GetMapping("/home")
-    public String home(){
-
-        return "index";
+    public ModelAndView home(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ModelAndView modelAndView = new ModelAndView("index");
+        if (principal instanceof User) {
+            String username = ((User)principal).getUsername();
+            System.out.println(((User) principal).getId());
+            User user = (User) principal;
+            modelAndView.addObject("user",user);
+        } else {
+            String username = principal.toString();
+        }
+        return modelAndView;
     }
     //hjbjh
 }
