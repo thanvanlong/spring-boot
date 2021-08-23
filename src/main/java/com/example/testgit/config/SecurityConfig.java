@@ -1,6 +1,6 @@
 package com.example.testgit.config;
 
-import com.example.testgit.entity.user.UserService;
+import com.example.testgit.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,22 +35,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated().and()
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .defaultSuccessUrl("/home")
-                .failureForwardUrl("/login?message=Email or password invalid!")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                    .loginPage("/login")
+                    .permitAll()
+                    .defaultSuccessUrl("/home")
+                    .failureForwardUrl("/login?message=Email or password invalid!")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
                 .and()
                 .rememberMe()
-                .tokenValiditySeconds(1209600)
-                .key("remember-me")
-                .rememberMeParameter("remember-me")
+                    .tokenValiditySeconds(1209600)
+                    .key("remember-me")
+                    .rememberMeParameter("remember-me")
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("login")
-                .deleteCookies("remember-me");
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login")
+                    .deleteCookies("remember-me");;
 
 
     }
