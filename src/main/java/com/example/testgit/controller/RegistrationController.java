@@ -12,14 +12,10 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @ResponseBody
-    @PostMapping
+    @PostMapping("/register")
     public String register(@RequestBody RegistrationRequest registrationRequest){
-        registrationService.register(registrationRequest);
-        return "confirmEmail";
-    }
 
-    @GetMapping("/confirm-email")
-    public String confirmEmail(){
+        registrationService.register(registrationRequest);
         return "confirmEmail";
     }
 
@@ -35,5 +31,11 @@ public class RegistrationController {
         System.out.println(registrationService.confirmToken(token));
 
         return "login";
+    }
+
+    @GetMapping("/home")
+    public String home(){
+
+        return "index";
     }
 }
