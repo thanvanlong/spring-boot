@@ -18,12 +18,12 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping("/register")
-    public String register(HttpServletRequest httpServletRequest)  {
+    public String register(HttpServletRequest httpServletRequest) {
         String firstName = httpServletRequest.getParameter("firstName");
         String lastName = httpServletRequest.getParameter("lastName");
         String password = httpServletRequest.getParameter("password");
         String email = httpServletRequest.getParameter("email");
-        RegistrationRequest request = new RegistrationRequest(firstName,lastName,password,email);
+        RegistrationRequest request = new RegistrationRequest(firstName, lastName, password, email);
         System.out.println(request.getFirstName());
         String message = registrationService.register(request);
         System.out.println(message);
@@ -67,4 +67,5 @@ public class RegistrationController {
         }
         return new ModelAndView("login");
     }
+    //hjbjh
 }
