@@ -28,17 +28,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/css/*","/js/*","/images/*","/signup","/confirm")
+                .antMatchers("/css/*","/js/*",
+                        "/images/*","/signup","/confirm," +
+                                "/login?message=fail to login")
                 .permitAll()
                 .antMatchers(HttpMethod.POST,"/register")
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
                 .formLogin()
+                    .loginProcessingUrl("/j_spring_security_check")
                     .loginPage("/login")
                     .permitAll()
                     .defaultSuccessUrl("/home")
-                    .failureForwardUrl("/login?message=Email or password invalid!")
+                    .failureUrl("/login?message=fail")
                     .usernameParameter("username")
                     .passwordParameter("password")
                 .and()

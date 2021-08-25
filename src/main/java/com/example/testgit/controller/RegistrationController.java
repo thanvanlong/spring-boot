@@ -6,6 +6,7 @@ import com.example.testgit.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,14 +25,22 @@ public class RegistrationController {
         String email = httpServletRequest.getParameter("email");
         RegistrationRequest request = new RegistrationRequest(firstName,lastName,password,email);
         System.out.println(request.getFirstName());
-        System.out.println(registrationService.register(request));
+        String message = registrationService.register(request);
+        System.out.println(message);
         //say ok
 
         return "confirm";
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(@RequestParam(value = "message", required = false ,defaultValue = "")  String message,
+                        Model model){
+        String errorMs = "fail";
+        if(message.equalsIgnoreCase("fail")){
+            errorMs = "Email or password invalid";
+            model.addAttribute("message",errorMs);
+        }
+        System.out.println(message);
         return "login";
     }
 
@@ -47,15 +56,15 @@ public class RegistrationController {
     @GetMapping("/home")
     public ModelAndView home(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ModelAndView modelAndView = new ModelAndView("index");
         if (principal instanceof User) {
-            String username = ((User)principal).getUsername();
-            System.out.println(((User) principal).getId());
+//            String username = ((User)principal).getUsername();
+//            System.out.println(((User) principal).getId());
             User user = (User) principal;
+            ModelAndView modelAndView = new ModelAndView("index");
             modelAndView.addObject("user",user);
         } else {
             String username = principal.toString();
         }
-        return modelAndView;
+        return new ModelAndView("login");
     }
 }

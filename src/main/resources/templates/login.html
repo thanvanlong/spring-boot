@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,8 @@
 							<p>
 								Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join now</a>
 							</p>
-						<form method="post" action="/login">
+						<form method="post" action="/j_spring_security_check">
+							<h6 th:text="${message}" style="color: red"></h6>
 							<div class="form-group">	
 							  <input type="text" id="input" name="username" required="required"/>
 							  <label class="control-label" for="input">Username</label><i class="mtrl-select"></i>
@@ -56,8 +57,8 @@
 							</div>
 							<a href="#" title="" class="forgot-pwd">Forgot Password?</a>
 							<div class="submit-btns">
-								<input class="signin" type="submit"><span>Login</span></input>
-								<button class="mtr-btn signup" type="button"><span>Register</span></button>
+								<button class="mtr-btn signin" type="submit" onclick="form.submit()"><span>Login</span></button>
+								<button class="mtr-btn signup" type="submit"><span>Register</span></button>
 							</div>
 						</form>
 					</div>
@@ -79,13 +80,14 @@
 							  <input type="password" name="password" required="required"/>
 							  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
 							</div>
+							<h6 id="result"></h6>
 							<div class="form-group">
-							  <input type="text" name="email" required="required"/>
+							  <input type="text" name="email" id="email" required="required"/>
 							  <label class="control-label" for="input"><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c29010d05002c">[email&#160;protected]</a></label><i class="mtrl-select"></i>
 							</div>
 							<a href="#" title="" class="already-have">Already have an account</a>
 							<div class="submit-btns">
-								<input class="mtr-btn signup" type="submit"><span>Register</span></input>
+								<button class="mtr-btn signup"  type="submit" onclick="form.submit()"><span>Register</span></button>
 							</div>
 						</form>
 					</div>

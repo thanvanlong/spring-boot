@@ -20,8 +20,10 @@ public class RegistrationService {
     private final EmailSender emailSender;
     private final ConfirmationService confirmationService;
     public String register(RegistrationRequest registrationRequest){
+        String message = "done";
         boolean isValidEmail = emailValidator.test(registrationRequest.getEmail());
         if(!isValidEmail){
+            message = "Email invalid";
             throw new IllegalStateException("Email invalid");
         }
 
@@ -33,8 +35,9 @@ public class RegistrationService {
 
         String token = userService.signup(user);
         String link = "http://localhost:8080/confirm?token=" + token;
-        emailSender.send(registrationRequest.getEmail(),buildEmail(registrationRequest.getFirstName(),link));
-        return "";
+        emailSender.send(registrationRequest.getEmail(),
+                buildEmail(registrationRequest.getFirstName(),link));
+        return message;
     }
 
     @Transactional
