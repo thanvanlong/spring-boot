@@ -67,5 +67,4 @@ public class RegistrationController {
         }
         return new ModelAndView("login");
     }
-    //hjbjh
 }
