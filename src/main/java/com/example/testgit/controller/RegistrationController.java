@@ -15,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 
 @Controller
@@ -62,21 +64,49 @@ public class RegistrationController {
         return "login";
     }
 
-    @GetMapping("/home")
-    public ModelAndView home(){
+    @GetMapping("/")
+    public String index(HttpServletResponse response, HttpServletRequest request){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof User) {
-//            String username = ((User)principal).getUsername();
-//            System.out.println(((User) principal).getId());
             User user = (User) principal;
             boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
+
+            if(!userExist){
+                Cookie[] cookies = request.getCookies();
+                int count = 0;
+                for(int i = 0; i< cookies.length ; ++i){
+                    if(cookies[i].getName().equals("remember-me")||
+                            cookies[i].getName().equals("JSESSIONID")){
+                        System.out.println(cookies[i]);
+                        cookies[i].setMaxAge(0);
+                        response.addCookie(cookies[i]);
+                        count++;
+                        if(count == 2){
+                            break;
+                        }
+
+                    }
+                }
+                return "login";
+            }
+        }
+        return "redirect:/home";
+
+    }
+
+    @GetMapping("/home")
+    public ModelAndView home(HttpServletResponse response, HttpServletRequest request){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            User user = (User) principal;
+            boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
+
             if(userExist){
                 System.out.println(user.getEmail());
                 ModelAndView modelAndView = new ModelAndView("index");
                 modelAndView.addObject("user",user);
                 return modelAndView;
             }
-
         }
         return new ModelAndView("login");
     }

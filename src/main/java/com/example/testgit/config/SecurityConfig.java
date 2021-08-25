@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/css/*","/js/*",
-                        "/images/*","/signup","/confirm" )
+                        "/images/*","/confirm" )
                 .permitAll()
                 .antMatchers(HttpMethod.POST,"/register")
                 .permitAll()
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/login")
-                    .deleteCookies("remember-me");;
+                    .deleteCookies("remember-me","JSESSIONID");;
 
 
     }
