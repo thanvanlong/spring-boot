@@ -2,7 +2,9 @@ package com.example.testgit.controller;
 
 import com.example.testgit.entity.request.RegistrationRequest;
 import com.example.testgit.entity.user.User;
+import com.example.testgit.repository.UserRepository;
 import com.example.testgit.service.RegistrationService;
+import com.example.testgit.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class RegistrationController {
     private final RegistrationService registrationService;
-
+    private final UserRepository userRepository;
     @PostMapping("/register")
     public String register(HttpServletRequest httpServletRequest) {
         String firstName = httpServletRequest.getParameter("firstName");
@@ -60,10 +62,14 @@ public class RegistrationController {
 //            String username = ((User)principal).getUsername();
 //            System.out.println(((User) principal).getId());
             User user = (User) principal;
-            ModelAndView modelAndView = new ModelAndView("index");
-            modelAndView.addObject("user",user);
-        } else {
-            String username = principal.toString();
+            boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
+            if(userExist){
+                System.out.println(user.getEmail());
+                ModelAndView modelAndView = new ModelAndView("index");
+                modelAndView.addObject("user",user);
+                return modelAndView;
+            }
+
         }
         return new ModelAndView("login");
     }
