@@ -1,14 +1,13 @@
-package com.example.demo.post;
+package com.example.testgit.entity.post;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "posts")
 public class Post {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "id_user",nullable = false)

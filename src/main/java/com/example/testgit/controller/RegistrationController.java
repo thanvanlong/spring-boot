@@ -1,9 +1,12 @@
 package com.example.testgit.controller;
 
+import com.example.testgit.entity.post.Post;
+import com.example.testgit.entity.post.PostService;
 import com.example.testgit.entity.request.RegistrationRequest;
 import com.example.testgit.entity.user.User;
 import com.example.testgit.service.RegistrationService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @Controller
 @AllArgsConstructor
 public class RegistrationController {
+
+    private final PostService postService;
+
     private final RegistrationService registrationService;
 
     @PostMapping("/register")
@@ -66,5 +73,28 @@ public class RegistrationController {
             String username = principal.toString();
         }
         return new ModelAndView("login");
+    }
+
+    @PostMapping("/post")
+    public String post(@RequestParam("textarea") String text, Model model){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ModelAndView modelAndView = new ModelAndView("index");
+        if (principal instanceof User) {
+            String username = ((User) principal).getUsername();
+            System.out.println(((User) principal).getId());
+            User user = (User) principal;
+            modelAndView.addObject("user", user);
+
+            Post post = new Post();
+            post.setBody(text);
+
+            LocalDateTime date = LocalDateTime.now();
+            post.setTime(date);
+            post.setIdUser(user.getId());
+            postService.addNewPost(post);
+//            model.addAttribute("p", post);
+//            System.out.println("ngay gio : " + date);
+        }
+        return "index";
     }
 }
