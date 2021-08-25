@@ -6,8 +6,8 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 	<title>Winku Social Network Toolkit</title>
-    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> 
-    
+    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="css/main.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
@@ -80,9 +80,11 @@
 							  <input type="password" name="password" required="required"/>
 							  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
 							</div>
+							<div id="rs">
+							</div>
 							<h6 id="result"></h6>
 							<div class="form-group">
-							  <input type="text" name="email" id="email" required="required"/>
+							  <input type="text" name="email" id="email" oninput="checkMail()" required="required"/>
 							  <label class="control-label" for="input"><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c29010d05002c">[email&#160;protected]</a></label><i class="mtrl-select"></i>
 							</div>
 							<a href="#" title="" class="already-have">Already have an account</a>
@@ -99,7 +101,29 @@
 	
 	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.min.js"></script>
 	<script src="js/script.js"></script>
+	<script>
+		function checkMail(){
+			let email = document.getElementById("email").value;
+			$.ajax({
+				type: "get",
+				url: "/check-mail",
+				data: {
+					email: email
+				},
+				success: function (data) {
+					let row = document.getElementById("rs");
+					row.innerHTML = data;
+					//alert(data)
 
+
+				},
+				error: function (request, status, error) {
+
+
+				}
+			});
+		}
+	</script>
 </body>	
 
 </html>

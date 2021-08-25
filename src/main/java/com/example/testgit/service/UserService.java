@@ -34,7 +34,8 @@ public class UserService implements UserDetailsService {
     public String signup(User user){
         boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
         if(userExist){
-            throw new IllegalStateException("Email already token");
+           // throw new IllegalStateException("Email already token");
+            return "Email already token";
         }
 
         String passEncoder = bCryptPasswordEncoder.encode(user.getPassword());

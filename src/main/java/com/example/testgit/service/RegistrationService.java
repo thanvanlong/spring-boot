@@ -34,6 +34,9 @@ public class RegistrationService {
                 UserRole.USER_ROLE);
 
         String token = userService.signup(user);
+        if (token.equalsIgnoreCase("Email already token")){
+            return "Email already token";
+        }
         String link = "http://localhost:8080/confirm?token=" + token;
         emailSender.send(registrationRequest.getEmail(),
                 buildEmail(registrationRequest.getFirstName(),link));
