@@ -1,8 +1,6 @@
-package com.example.demo.post;
+package com.example.testgit.entity.post;
 
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class PostService {
@@ -12,8 +10,8 @@ public class PostService {
     public PostService(PostRepository repository) {
         this.repository = repository;
     }
-    public Post getPostById(){
-        return repository.getById(1);
+    public Post getPostById(int id){
+        return repository.getById(id);
     }
 
     public void addNewPost(Post post) {
