@@ -106,13 +106,16 @@
 			let email = document.getElementById("email").value;
 			$.ajax({
 				type: "get",
-				url: "/check-mail",
+				url: "/api/check-mail",
 				data: {
 					email: email
 				},
 				success: function (data) {
 					let row = document.getElementById("rs");
 					row.innerHTML = data;
+					let text = document.getElementById("check");
+					console.log(text);
+					console.log(typeof text);
 					//alert(data)
 
 

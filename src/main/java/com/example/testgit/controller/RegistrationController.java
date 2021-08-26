@@ -64,7 +64,7 @@ public class RegistrationController {
         return "login";
     }
 
-    @GetMapping("/")
+    @GetMapping(value = {"/",""})
     public String index(HttpServletResponse response, HttpServletRequest request){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof User) {
@@ -80,6 +80,7 @@ public class RegistrationController {
                         System.out.println(cookies[i]);
                         cookies[i].setMaxAge(0);
                         response.addCookie(cookies[i]);
+                        System.out.println(count);
                         count++;
                         if(count == 2){
                             break;

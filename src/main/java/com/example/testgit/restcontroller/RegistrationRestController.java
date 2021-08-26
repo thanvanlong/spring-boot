@@ -4,6 +4,7 @@ import com.example.testgit.email.EmailValidator;
 import com.example.testgit.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.io.PrintWriter;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
 public class RegistrationRestController {
     private final UserRepository userRepository;
     private final EmailValidator emailValidator;
@@ -27,9 +29,9 @@ public class RegistrationRestController {
             try {
                 PrintWriter out = response.getWriter();
                 if(isEmailExist){
-                    out.println("<h6 style=\"color: red;\">Email already token</h6>");
+                    out.println("<h6 style=\"color: red;\" id=\"check\">xEmail already token!!</h6>");
                 }else {
-                    out.println("<h6></h6>");
+                    out.println("<h6 id=\"check\"></h6>");
                 }
 
             } catch (IOException e) {
@@ -38,7 +40,7 @@ public class RegistrationRestController {
         }else{
             try {
                 PrintWriter out = response.getWriter();
-                out.println("<h6 style=\"color: red;\">Email is not valid :(</h6>");
+                out.println("<h6 style=\"color: red;\" id=\"check\">xEmail is not valid :(</h6>");
 
 
             } catch (IOException e) {

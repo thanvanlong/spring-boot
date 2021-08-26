@@ -2,6 +2,7 @@ package com.example.testgit.config;
 
 import com.example.testgit.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,11 +18,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final UserService userService;
+    @Autowired
+    UserService userService;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/css/*","/js/*",
-                        "/images/*","/confirm","/check-mail" )
+                        "/images/*","/confirm","/api" )
                 .permitAll()
                 .antMatchers(HttpMethod.POST,"/register")
                 .permitAll()
@@ -48,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .tokenValiditySeconds(1209600)
                     .key("remember-me")
                     .rememberMeParameter("remember-me")
+                    .userDetailsService(userService)
                 .and()
                 .logout()
                     .logoutUrl("/logout")
