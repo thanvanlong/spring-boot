@@ -48,7 +48,16 @@ public class RegistrationController {
                         Model model){
         String errorMs = "fail";
         if(message.equalsIgnoreCase("fail")){
-            errorMs = "Email or password invalid";
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if(principal instanceof  User){
+                User user = (User) principal;
+                if(user.getEnabled()){
+                    errorMs = "Email is not enabled";
+                }
+            } else{
+                errorMs = "Email or password invalid";
+            }
+
             model.addAttribute("message",errorMs);
         }
         System.out.println(message);
