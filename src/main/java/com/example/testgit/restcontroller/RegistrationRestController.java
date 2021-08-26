@@ -29,9 +29,9 @@ public class RegistrationRestController {
             try {
                 PrintWriter out = response.getWriter();
                 if(isEmailExist){
-                    out.println("<h6 style=\"color: red;\" id=\"check\">xEmail already token!!</h6>");
+                    out.println("<h6 style=\"color: red;\">xEmail already token!!</h6>");
                 }else {
-                    out.println("<h6 id=\"check\"></h6>");
+                    out.println("<h6></h6>");
                 }
 
             } catch (IOException e) {
@@ -40,7 +40,7 @@ public class RegistrationRestController {
         }else{
             try {
                 PrintWriter out = response.getWriter();
-                out.println("<h6 style=\"color: red;\" id=\"check\">xEmail is not valid :(</h6>");
+                out.println("<h6 style=\"color: red;\">xEmail is not valid :(</h6>");
 
 
             } catch (IOException e) {
