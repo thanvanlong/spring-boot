@@ -20,6 +20,7 @@
 
 <body>
 <!--<div class="se-pre-con"></div>-->
+
 <div class="theme-layout">
 
     <div class="responsive-header">
@@ -298,119 +299,124 @@
                                         </div>
                                     </div>
                                 </div><!-- add post new box -->
-                                <div class="loadMore">
-                                    <div class="central-meta item">
-                                        <div class="user-post">
-                                            <div class="friend-info">
-                                                <figure>
-                                                    <img alt="" src="images/resources/friend-avatar10.jpg">
-                                                </figure>
-                                                <div class="friend-name">
-                                                    <ins th:text="${user.getEmail()}"><a href="time-line.html" title=""></a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
-                                                </div>
-                                                <div class="post-meta">
-                                                    <img alt="" src="images/resources/user-post.jpg">
-                                                    <div class="we-video-info">
-                                                        <ul>
-                                                            <li>
+
+                                    <div class="loadMore">
+                                        <div class="central-meta item">
+                                            <th:foreach th:each="post :${posts}">
+                                            <div class="user-post">
+
+                                                <div class="friend-info">
+                                                    <figure>
+                                                        <img alt="" src="images/resources/friend-avatar10.jpg">
+                                                    </figure>
+                                                    <div class="friend-name">
+                                                        <ins><a href="/profile" title=""></a>duc</ins>
+                                                        <span th:text="${post.getTime()}"></span>
+                                                    </div>
+                                                    <div class="post-meta">
+                                                        <img alt="" src="images/resources/user-post.jpg">
+                                                        <div class="we-video-info">
+                                                            <ul>
+                                                                <li>
 																	<span class="views" data-toggle="tooltip"
                                                                           title="views">
 																		<i class="fa fa-eye"></i>
 																		<ins>1.2k</ins>
 																	</span>
-                                                            </li>
-                                                            <li>
+                                                                </li>
+                                                                <li>
 																	<span class="comment" data-toggle="tooltip"
                                                                           title="Comments">
 																		<i class="fa fa-comments-o"></i>
 																		<ins>52</ins>
 																	</span>
-                                                            </li>
-                                                            <li>
+                                                                </li>
+                                                                <li>
 																	<span class="like" data-toggle="tooltip"
                                                                           title="like">
 																		<i class="ti-heart"></i>
 																		<ins>2.2k</ins>
 																	</span>
-                                                            </li>
-                                                            <li>
+                                                                </li>
+                                                                <li>
 																	<span class="dislike" data-toggle="tooltip"
                                                                           title="dislike">
 																		<i class="ti-heart-broken"></i>
 																		<ins>200</ins>
 																	</span>
-                                                            </li>
-                                                            <li class="social-media">
-                                                                <div class="menu">
-                                                                    <div class="btn trigger"><i
-                                                                            class="fa fa-share-alt"></i></div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-html5"></i></a>
+                                                                </li>
+                                                                <li class="social-media">
+                                                                    <div class="menu">
+                                                                        <div class="btn trigger"><i
+                                                                                class="fa fa-share-alt"></i></div>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#"
+                                                                                                         title=""><i
+                                                                                    class="fa fa-html5"></i></a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-facebook"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#"
+                                                                                                         title=""><i
+                                                                                    class="fa fa-facebook"></i></a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-google-plus"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#"
+                                                                                                         title=""><i
+                                                                                    class="fa fa-google-plus"></i></a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-twitter"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#"
+                                                                                                         title=""><i
+                                                                                    class="fa fa-twitter"></i></a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-css3"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#"
+                                                                                                         title=""><i
+                                                                                    class="fa fa-css3"></i></a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-instagram"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#"
+                                                                                                         title=""><i
+                                                                                    class="fa fa-instagram"></i></a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-dribbble"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#"
+                                                                                                         title=""><i
+                                                                                    class="fa fa-dribbble"></i></a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="rotater">
-                                                                        <div class="btn btn-icon"><a href="#"
-                                                                                                     title=""><i
-                                                                                class="fa fa-pinterest"></i></a>
+                                                                        <div class="rotater">
+                                                                            <div class="btn btn-icon"><a href="#"
+                                                                                                         title=""><i
+                                                                                    class="fa fa-pinterest"></i></a>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
 
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="description">
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="description">
 
-                                                        <p>
-                                                            World's most beautiful car in Curabitur <a href="#"
-                                                                                                       title="">#test
-                                                            drive booking !</a> the most
-                                                            beatuiful car available in america and the saudia
-                                                            arabia, you can book your test drive by our official
-                                                            website
-                                                        </p>
+                                                            <p th:text="${post.getBody()}">
+                                                                                                                            World's most beautiful car in Curabitur <a href="#"
+                                                                                                                                                                       title="">#test
+                                                                                                                            drive booking !</a> the most
+                                                                                                                            beatuiful car available in america and the saudia
+                                                                                                                            arabia, you can book your test drive by our official
+                                                                                                                            website
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+
+
                                             <div class="coment-area">
                                                 <ul class="we-comet">
                                                     <li>
@@ -526,8 +532,11 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                            </th:foreach>
                                     </div>
-                                    <div class="central-meta item">
+
+                                        <div class="central-meta item">
+
                                         <div class="user-post">
                                             <div class="friend-info">
                                                 <figure>
@@ -535,7 +544,7 @@
                                                 </figure>
                                                 <div class="friend-name">
                                                     <ins><a href="time-line.html" title="">Sara Grey</a></ins>
-                                                    <span>published: june,2 2018 19:PM</span>
+                                                    <span>published: 2020:12:01</span>
                                                 </div>
                                                 <div class="post-meta">
                                                     <iframe allow="autoplay;" allowfullscreen
@@ -716,6 +725,7 @@
                                                 </ul>
                                             </div>
                                         </div>
+                                        </th:foreach>
                                     </div>
                                     <div class="central-meta item">
                                         <div class="user-post">

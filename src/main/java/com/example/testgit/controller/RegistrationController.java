@@ -163,26 +163,4 @@ public class RegistrationController {
         return new ModelAndView("login");
     }
 
-    @PostMapping("/post")
-    public String post(@RequestParam("textarea") String text, Model model){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ModelAndView modelAndView = new ModelAndView("index");
-        if (principal instanceof User) {
-            String username = ((User) principal).getUsername();
-            System.out.println(((User) principal).getId());
-            User user = (User) principal;
-            modelAndView.addObject("user", user);
-
-            Post post = new Post();
-            post.setBody(text);
-
-            LocalDateTime date = LocalDateTime.now();
-            post.setTime(date);
-            post.setIdUser(user.getId());
-            postService.addNewPost(post);
-//            model.addAttribute("p", post);
-//            System.out.println("ngay gio : " + date);
-        }
-        return "index";
-    }
 }
