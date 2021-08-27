@@ -44,7 +44,7 @@ public class User implements UserDetails {
     private String background;
     private Boolean enabled = false;
     private Boolean locked = false;
-
+    private Boolean isOnline = false;
     public User(String firstName,
                 String lastName ,
                 String password,

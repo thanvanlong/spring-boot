@@ -30,47 +30,23 @@ $('.friendz-list > li, .chat-users > li').on('click', function() {
 		return false;
 	});
 
-	// email valid
-	// function validateEmail(email) {
-	// 	const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	// 	return re.test(email);
-	// }
-
-	// function validate() {
-	// 	const $result = $("#result");
-	// 	const email = $("#email").val();
-	// 	$result.text("");
-
-		// $.ajax({
-		// 	type: "get",
-		// 	url: "/check-mail",
-		// 	data: {
-		// 		email: email
-		// 	},
-		// 	success: function (data) {
-		// 		var row = document.getElementById("rs")
-		// 		rs.innerHTML(data)
-		// 		alert(data)
-		//
-		//
-		// 	},
-		// 	error: function (request, status, error) {
-		//
-		//
-		// 	}
-		// });
-		//
-		// if (validateEmail(email)) {
-		// 	$result.text(email + " is valid :)");
-		// 	$result.css("color", "green");
-		// } else {
-		// 	$result.text(email + " is not valid :(");
-		// 	$result.css("color", "red");
-		// }
-		// return false;
-	//}
-
-	// $("#email").on("input", validate);
+	//update status of user is offline
+	window.onunload = function(){//If user left the page
+		user_left_page();
+	};
+	function user_left_page(){//USER LEFT THE PAGE send data to php to store into my database
+		let action = "off";
+		console.log(action)
+		alert(action)
+		$.ajax({
+			url:"/api/update-status",
+			method:"get",
+			data:{
+				action: action},
+			success: function(data){
+			},
+		});
+	}
 	
 //------ scrollbar plugin
 	if ($.isFunction($.fn.perfectScrollbar)) {

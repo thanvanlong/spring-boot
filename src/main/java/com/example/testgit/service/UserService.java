@@ -52,7 +52,17 @@ public class UserService implements UserDetailsService {
         return token;
     }
 
+
+
     public int setEnabled(String email){
         return userRepository.setEnabled(email);
+    }
+
+    public int setOff(int id){
+        return userRepository.setOff(id);
+    }
+
+    public int setOnl(int id){
+        return userRepository.setOff(id);
     }
 }

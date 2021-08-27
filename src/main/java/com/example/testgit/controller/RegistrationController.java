@@ -6,10 +6,11 @@ import com.example.testgit.entity.request.RegistrationRequest;
 import com.example.testgit.entity.user.User;
 import com.example.testgit.repository.UserRepository;
 import com.example.testgit.service.RegistrationService;
-import com.example.testgit.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +20,21 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class RegistrationController {
 
     private final PostService postService;
-
     private final RegistrationService registrationService;
     private final UserRepository userRepository;
+    public static User user;
+    @Autowired
+            @Qualifier("sessionRegistry")
+    SessionRegistry sessionRegistry;
+
     @PostMapping("/register")
     public String register(HttpServletRequest httpServletRequest) {
         String firstName = httpServletRequest.getParameter("firstName");
@@ -44,13 +51,34 @@ public class RegistrationController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(value = "message", required = false ,defaultValue = "")  String message,
-                        Model model){
+    public String login(@RequestParam(value = "message", required = false ,defaultValue = "")
+                                    String message, Model model){
+//        List<Object> principals = sessionRegistry.getAllPrincipals();
+//        List<User> userList = new ArrayList<>();
+//        //System.out.println(principals.size());
+//        for (Object pri :
+//                principals) {
+//            if(pri instanceof User){
+//                userList.add((User)pri);
+//                System.out.println(((User) pri).getEmail());
+//
+//            }
+//        }
+//        for (User user:
+//             userList) {
+//            System.out.println(user.getEmail());
+//        }
+//        System.out.println(userList.size());
         String errorMs = "fail";
         if(message.equalsIgnoreCase("fail")){
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Object principal = SecurityContextHolder.getContext().
+                    getAuthentication().getPrincipal();
+
             if(principal instanceof  User){
-                User user = (User) principal;
+                user = (User) principal;
+                if(!user.getIsOnline()){
+                    userRepository.setOnline(user.getId());
+                }
                 if(user.getEnabled()){
                     errorMs = "Email is not enabled";
                 }
@@ -107,8 +135,22 @@ public class RegistrationController {
     @GetMapping("/home")
     public ModelAndView home(HttpServletResponse response, HttpServletRequest request){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Object> principals = sessionRegistry.getAllPrincipals();
+        List<User> userList = new ArrayList<>();
+
+        for (Object pri:
+             principals) {
+            if(pri instanceof User){
+                userList.add((User) pri);
+                System.out.println(((User) pri).getEmail());
+            }
+        }
+
+        System.out.println(userList.size());
+
         if (principal instanceof User) {
             User user = (User) principal;
+            userRepository.setOnline(user.getId());
             boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
 
             if(userExist){
