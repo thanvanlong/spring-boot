@@ -22,7 +22,9 @@ import java.util.Locale;
 public class ProfileController {
 
     @GetMapping("/profile")
-    public String yourProfile(){
+    public String yourProfile(@RequestParam("id") String id){
+        int uid = Integer.parseInt(id);
+        System.out.println(uid);
         return "time-line";
     }
 

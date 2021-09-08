@@ -13,18 +13,12 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Integer> {
     Optional<User> findByEmail(String email);
 
+    Optional<User> findById(int id);
+
     @Transactional
     @Modifying
     @Query("update User u set u.enabled = true where u.email = ?1")
     int setEnabled(String email);
 
-    @Transactional
-    @Modifying
-    @Query("update User u set u.isOnline = true where u.id = ?1")
-    int setOnline(int id);
 
-    @Transactional
-    @Modifying
-    @Query("update User u set u.isOnline = false where u.id = ?1")
-    int setOff(int id);
 }

@@ -44,16 +44,17 @@ public class User implements UserDetails {
     private String background;
     private Boolean enabled = false;
     private Boolean locked = false;
-    private Boolean isOnline = false;
     public User(String firstName,
                 String lastName ,
                 String password,
                 String email,
+                String avatar,
                 UserRole role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
+        this.avatar = avatar;
         this.role = role;
     }
 

@@ -1,7 +1,8 @@
 package com.example.testgit.controller;
 
 import com.example.testgit.entity.post.Post;
-import com.example.testgit.entity.post.PostService;
+import com.example.testgit.repository.PostRepository;
+import com.example.testgit.service.PostService;
 import com.example.testgit.entity.request.RegistrationRequest;
 import com.example.testgit.entity.user.User;
 import com.example.testgit.repository.UserRepository;
@@ -19,15 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class RegistrationController {
 
-    private final PostService postService;
+    private final PostRepository postRepository;
     private final RegistrationService registrationService;
     private final UserRepository userRepository;
     public static User user;
@@ -53,22 +52,7 @@ public class RegistrationController {
     @GetMapping("/login")
     public String login(@RequestParam(value = "message", required = false ,defaultValue = "")
                                     String message, Model model){
-//        List<Object> principals = sessionRegistry.getAllPrincipals();
-//        List<User> userList = new ArrayList<>();
-//        //System.out.println(principals.size());
-//        for (Object pri :
-//                principals) {
-//            if(pri instanceof User){
-//                userList.add((User)pri);
-//                System.out.println(((User) pri).getEmail());
-//
-//            }
-//        }
-//        for (User user:
-//             userList) {
-//            System.out.println(user.getEmail());
-//        }
-//        System.out.println(userList.size());
+//    
         String errorMs = "fail";
         if(message.equalsIgnoreCase("fail")){
             Object principal = SecurityContextHolder.getContext().
@@ -76,9 +60,6 @@ public class RegistrationController {
 
             if(principal instanceof  User){
                 user = (User) principal;
-                if(!user.getIsOnline()){
-                    userRepository.setOnline(user.getId());
-                }
                 if(user.getEnabled()){
                     errorMs = "Email is not enabled";
                 }
@@ -104,6 +85,7 @@ public class RegistrationController {
     @GetMapping(value = {"/",""})
     public String index(HttpServletResponse response, HttpServletRequest request){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         if (principal instanceof User) {
             User user = (User) principal;
             boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
@@ -133,30 +115,18 @@ public class RegistrationController {
     }
 
     @GetMapping("/home")
-    public ModelAndView home(HttpServletResponse response, HttpServletRequest request){
+    public ModelAndView home(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Object> principals = sessionRegistry.getAllPrincipals();
-        List<User> userList = new ArrayList<>();
-
-        for (Object pri:
-             principals) {
-            if(pri instanceof User){
-                userList.add((User) pri);
-                System.out.println(((User) pri).getEmail());
-            }
-        }
-
-        System.out.println(userList.size());
-
         if (principal instanceof User) {
             User user = (User) principal;
-            userRepository.setOnline(user.getId());
             boolean userExist = userRepository.findByEmail(user.getEmail()).isPresent();
 
             if(userExist){
                 System.out.println(user.getEmail());
+                List<Post> posts = postRepository.getAllPost();
                 ModelAndView modelAndView = new ModelAndView("index");
                 modelAndView.addObject("user",user);
+                modelAndView.addObject("posts",posts);
                 return modelAndView;
             }
         }

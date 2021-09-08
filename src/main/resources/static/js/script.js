@@ -31,9 +31,7 @@ $('.friendz-list > li, .chat-users > li').on('click', function() {
 	});
 
 	//update status of user is offline
-	window.onunload = function(){//If user left the page
-		user_left_page();
-	};
+
 	function user_left_page(){//USER LEFT THE PAGE send data to php to store into my database
 		let action = "off";
 		console.log(action)
@@ -46,6 +44,12 @@ $('.friendz-list > li, .chat-users > li').on('click', function() {
 			success: function(data){
 			},
 		});
+
+		window.onunload = function(){//If user left the page
+			console.log("say ok")
+			user_left_page();
+			return "are you sure leave this website"
+		};
 	}
 	
 //------ scrollbar plugin
@@ -330,17 +334,7 @@ $(function() {
 		});
 	}
 	
-/** Post a Comment **/
-jQuery(".post-comt-box textarea").on("keydown", function(event) {
 
-	if (event.keyCode == 13) {
-		var comment = jQuery(this).val();
-		var parent = jQuery(".showmore").parent("li");
-		var comment_HTML = '	<li><div class="comet-avatar"><img src="images/resources/comet-1.jpg" alt=""></div><div class="we-comment"><div class="coment-head"><h5><a href="time-line.html" title="">Jason borne</a></h5><span>1 year ago</span><a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a></div><p>'+comment+'</p></div></li>';
-		$(comment_HTML).insertBefore(parent);
-		jQuery(this).val('');
-	}
-}); 
 	
 //inbox page 	
 //***** Message Star *****//  

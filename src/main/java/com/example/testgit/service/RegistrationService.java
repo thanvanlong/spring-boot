@@ -31,8 +31,8 @@ public class RegistrationService {
                 registrationRequest.getLastName(),
                 registrationRequest.getPassword(),
                 registrationRequest.getEmail(),
+                "images/avatar.jpg",
                 UserRole.USER_ROLE);
-
         String token = userService.signup(user);
         if (token.equalsIgnoreCase("Email already token")){
             return "Email already token";

@@ -1,4 +1,4 @@
-package com.example.testgit.restcontroller;
+package com.example.testgit.ajax;
 
 import com.example.testgit.email.EmailValidator;
 import com.example.testgit.repository.UserRepository;
@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
-public class RegistrationRestController {
+public class RegistrationAjax {
     private final UserRepository userRepository;
     private final EmailValidator emailValidator;
     @GetMapping("/check-mail")
@@ -23,7 +23,7 @@ public class RegistrationRestController {
         String email = request.getParameter("email");
         System.out.println(email);
         boolean isEmailExist = userRepository.findByEmail(email).isPresent();
-        System.out.println(isEmailExist);
+        //System.out.println(isEmailExist);
         boolean isValidEmail = emailValidator.test(email);
         if(isValidEmail){
             try {

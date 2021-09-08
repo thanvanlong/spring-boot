@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -40,6 +41,7 @@ public class UserService implements UserDetailsService {
 
         String passEncoder = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(passEncoder);
+
         userRepository.save(user);
         String token = UUID.randomUUID().toString();
         ConfirmationToken comConfirmationToken =
@@ -58,13 +60,10 @@ public class UserService implements UserDetailsService {
         return userRepository.setEnabled(email);
     }
 
-    public int setOff(int id){
-        return userRepository.setOff(id);
+    public Optional<User> findUserById(int id){
+        return userRepository.findById(id);
     }
 
-    public int setOnl(int id){
-        return userRepository.setOff(id);
-    }
 
 
 }
