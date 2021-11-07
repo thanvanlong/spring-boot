@@ -1,5 +1,6 @@
 package com.example.testgit.config;
 
+import com.example.testgit.entity.user.UserRole;
 import com.example.testgit.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,13 +1,14 @@
 var stompClient = null;
+var userID = document.getElementById('userID').value;
 function connect() {
     var socket = new SockJS('/websocket');
         stompClient = Stomp.over(socket);
-        //stompClient.debug = null;
+        stompClient.debug = null;
         stompClient.connect({}, function (frame) {
-            //console.log('Connected: ' + frame);
+            console.log( frame.headers['user-name']);
             stompClient.subscribe("/topic/comment", function (cmt) {
                 if(stompClient.subscribe()){
-                    console.log(JSON.parse(cmt.body).user.avatar);
+                   // console.log(JSON.parse(cmt.body));
                     showMessage(JSON.parse(cmt.body).post.id,
                                 JSON.parse(cmt.body).text,
                                 JSON.parse(cmt.body).user.avatar,
@@ -18,6 +19,26 @@ function connect() {
                 }
 
             });
+
+            stompClient.subscribe("/topic/comment/" + userID, function (notification){
+                if(stompClient.subscribe()){
+                    let ul = document.getElementById('notification');
+                    let data = "   <li>\n" +
+                        "                            <a href=\"notifications.html\" title=\"\">\n" +
+                        "                                <img src=\"images/resources/thumb-1.jpg\" alt=\"\">\n" +
+                        "                                <div class=\"mesg-meta\">\n" +
+                        "                                    <span>"+JSON.parse(notification.body).text +"</span>\n" +
+                        "                                    <i>time</i>\n" +
+                        "                                </div>\n" +
+                        "                            </a>\n" +
+                        "                            <span class=\"tag green\">New</span>\n" +
+                        "                        </li>"
+                    let audio = document.getElementById("audio").play();
+                    console.log(audio)
+                    ul.insertAdjacentHTML('afterbegin',data);
+                    console.log((notification.body))
+                }
+            } );
 
         });
 
@@ -31,6 +52,7 @@ function sendCmt(event,dc) {
     var id_user = dc.nextElementSibling.value;
     var text = dc.value;
     if(event.keyCode === 13){
+        dc.value = "";
         stompClient.send("/app/comment/" + id_post + '-' + id_user ,{},JSON.stringify({'text' : text}));
     }
 

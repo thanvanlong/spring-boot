@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.security.Principal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -16,7 +17,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-public class User implements UserDetails {
+public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -93,5 +94,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public String getName() {
+        return email;
     }
 }

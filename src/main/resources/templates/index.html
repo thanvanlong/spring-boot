@@ -48,6 +48,7 @@
         <!--nav setting-->
         <nav id="shoppingbag">
             <div>
+                <input type="hidden" th:value="${user.getEmail()}" id="userID">
                 <div class="">
                     <form method="post">
                         <div class="setting-row">
@@ -131,6 +132,9 @@
         <div class="gap2 gray-bg">
             <div class="container-fluid">
                 <div class="row">
+                    <audio id="audio" controls autoplay >
+                        <source src="pristine-609.mp3" type="audio/mp3">
+                    </audio>
                     <div class="col-lg-12">
                         <div class="row merged20" id="page-contents">
                             <div class="col-lg-3">
@@ -269,23 +273,22 @@
 
                                                 <textarea name="textarea" id="textarea" placeholder="write something"
                                                           rows="2"></textarea>
-                                                <div id="img"></div>
+                                                <div id="img">
+
+                                                </div>
                                                 <div class="attachments">
                                                     <ul>
                                                         <li>
                                                             <i class="fa fa-image"></i>
                                                             <label class="fileContainer">
-                                                                <input type="file" id="img-file"  onchange='openFile(event)' name="img" >
+                                                                <input type="file" id="img-file"  onchange='openFile(event)' name="img"  >
                                                             </label>
                                                         </li>
                                                         <li>
                                                             <i class="fa fa-video-camera"></i>
                                                             <label class="fileContainer">
-                                                                <input type="file">
+                                                                <input type="file" >
                                                             </label>
-                                                        </li>
-                                                        <li id="clear-img">
-                                                            <i class="fas fa-code" onclick="clearImg()"></i>
                                                         </li>
                                                         <li>
                                                             <button type="button" class="mtr-btn" onclick="submitClick()"><span>Post</span></button>
@@ -321,7 +324,7 @@
                                                                 <li>
 																	<span class="views" data-toggle="tooltip"
                                                                           title="views">
-																		<i class="fa fa-eye"></i>
+																		<i class="fa fa-eye" ></i>
 																		<ins>1.2k</ins>
 																	</span>
                                                                 </li>
@@ -452,6 +455,9 @@
                                 </div>
                             </div><!-- centerl meta -->
                             <div class="col-lg-3">
+
+
+
                                 <aside class="sidebar static right">
                                     <div class="widget">
                                         <h4 class="widget-title">Your page</h4>

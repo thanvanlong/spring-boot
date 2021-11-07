@@ -22,13 +22,13 @@ const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);
 
 window.submitClick = function submitClick() {
-    var text = document.getElementById('textarea').value;
-    var outimg = document.getElementById('out');
+    let text = document.getElementById('textarea').value;
+    let out = document.getElementById('out');
     if (text === '' ) {
         text = "";
     }
 
-    if (outimg === null) {
+    if (out === null) {
         if(text === ''){
             alert("Enter something !!")
         }else{
@@ -88,8 +88,8 @@ window.submitClick = function submitClick() {
         setTimeout(function () {
             var t = document.getElementById('textarea')
             t.value = "";
-            var out = document.getElementById('out')
-            out.remove();
+            out.src = " ";
+
         }, 3000)
 
     }
